@@ -31,7 +31,7 @@ jobs:
         run: echo "${{ secrets.MAVEN_SETTINGS_XML }}" > $HOME/.m2/settings.xml
 
       - name: Build
-        run: mvn clean package -B
+        run: mvn -DANYPOINT_ORGID=$ANYPOINT_ORGID clean package -B
 
       - name: Deploy
-        run: mvn deploy -B -DskipTests
+        run: mvn deploy -DANYPOINT_ORGID=$ANYPOINT_ORGID -B -DskipTests

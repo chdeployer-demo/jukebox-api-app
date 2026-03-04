@@ -6,6 +6,10 @@ An example MuleSoft application used to demonstrate [Anypoint CloudHub Deploymen
 
 This is a Mule 4 application that implements a simple Jukebox API. It serves as a reference project for testing and demoing automated deployments to Anypoint CloudHub using the Anypoint CloudHub Deployment CLI tool.
 
+## Deployment Approach
+
+This project uses only the standard [Mule Maven Plugin](https://docs.mulesoft.com/mule-runtime/latest/mmp-concept) to deploy artifacts to Anypoint Exchange. No additional deployment plugins or custom tooling is required — the actual CloudHub deployment is handled separately by the [Anypoint CloudHub Deployment CLI](https://github.com/Redpill-Linpro/anypointchdeployer).
+
 ## Prerequisites
 
 - Java 17
