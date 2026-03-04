@@ -1,0 +1,37 @@
+name: Build and Deploy
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      ANYPOINT_MAVEN_USERNAME: ${{ secrets.ANYPOINT_MAVEN_USERNAME }}
+      ANYPOINT_MAVEN_PASSWORD: ${{ secrets.ANYPOINT_MAVEN_PASSWORD }}
+      ANYPOINT_ORGID: ${{ secrets.ANYPOINT_ORGID }}
+      ANYPOINT_CONNECTEDAPP_CLIENTID: ${{ secrets.ANYPOINT_CONNECTEDAPP_CLIENTID }}
+      ANYPOINT_CONNECTEDAPP_CLIENTSECRET: ${{ secrets.ANYPOINT_CONNECTEDAPP_CLIENTSECRET }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Write Maven settings.xml
+        run: echo "${{ secrets.MAVEN_SETTINGS_XML }}" > $HOME/.m2/settings.xml
+
+      - name: Build
+        run: mvn clean package -B
+
+      - name: Deploy
+        run: mvn deploy -B -DskipTests
