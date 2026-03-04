@@ -28,7 +28,7 @@ jobs:
           cache: maven
 
       - name: Write Maven settings.xml
-        run: echo "${{ secrets.MAVEN_SETTINGS_XML }}" > $HOME/.m2/settings.xml
+        run: echo '${{ MAVEN_SETTINGS_XML }}' > $HOME/.m2/settings.xml
 
       - name: Build
         run: mvn -DANYPOINT_ORGID=$ANYPOINT_ORGID clean package -B
